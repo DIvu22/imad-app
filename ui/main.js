@@ -24,3 +24,19 @@ button.onclick=function()
        
        
    };
+   
+   var inputName=document.getElementById('name');
+   var name=inputName.value;
+   var submit=documnet.getElementById('button');
+   submit.onclick=function()
+   {
+      var names=['name1','name2','name3'];
+      var list='';
+      for(var i=0;i<names.length;i++)
+      {
+          list='<li>'+name[i]+'</li>';
+      }
+      var ul=document.grtElementById('names-list');
+      ul.innerHTML=list;
+      
+   };
