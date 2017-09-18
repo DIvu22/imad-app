@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool=require('pg').Pool;
+var crypto=require('crypto');
 
 var config={
     user:'divu1666',
@@ -110,6 +111,21 @@ app.get('/ui/main.js', function (req, res) {
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
+
+function hash(input,salt)
+{
+  var hashed=crypto.pbkdf2Sync(input,salt,10000,512,'sha512');  
+  return hashed.toString('hex');
+}
+
+app.get('/hash/:input',function(req,res)
+{
+    var hashedString=hash(req.params.inpu,'this is some random string');
+    res.send(hashedString);
+});
+
+
+
  
  var poll=new Pool(config);
  app.get('/test-db',function(req,res){
